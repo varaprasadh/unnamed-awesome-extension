@@ -49,7 +49,8 @@ function addTopSites(){
             node.querySelector('.list-item').href=site.url; 
             let logo=node.querySelector('.site-icon');
 
-
+              //offline first
+        //chjeck whether the locally avaible or not
           chrome.storage.local.get([faviconUrl],(ob)=>{
         
             if(ob[faviconUrl]){
