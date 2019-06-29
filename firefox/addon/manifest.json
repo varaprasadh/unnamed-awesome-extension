@@ -1,7 +1,7 @@
 {
     "version":"1.0",
     "manifest_version":2,
-    "name":"Theme-awesome",
+    "name":"WCS-Custom",
     "description":"a classic customized experience for your browser",
     "icons":{
         "128":"./images/icon.png",

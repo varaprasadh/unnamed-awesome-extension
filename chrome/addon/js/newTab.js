@@ -2,6 +2,7 @@ let searchbar,searchIcon,top_sites_container;
 let list_item_template,list_item_node;
 let customizer,closebtn,uploadbtn;
 let bgimage;
+let days_of_week=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 window.onload=function(){
     console.log("something hpasfs");
     searchbar=document.querySelector('.search-bar');
@@ -12,7 +13,6 @@ window.onload=function(){
     closebtn=document.querySelector('.editWindow .close');
     bgimage=document.querySelector('.bg-wallpaper img');
     uploadbtn=document.querySelector('.upload');
-
     setBackground();
     addTopSites();
     addTime();
@@ -70,14 +70,12 @@ async function setBackground(){
       bgimage.src=bgSource.bgurl;
     }else if(bgSource.type==="custom"){
       console.log("custom");
-      
       chrome.storage.local.get(['bgsrc'],obj=>{
         bgimage.src=obj.bgsrc;
       })
     }
-    else{
+    bgimage.style.display="block";
     return
-    }
 }
 
 function toggleEditWindow(){
@@ -180,8 +178,11 @@ function arrayBufferToBase64(buffer) {
       let timeDay=document.querySelector('.time-day');
       let date=document.querySelector('.date');
       let d= new Date();
-      timeDay.textContent=d.getHours()+":"+d.getMinutes()+","+d.toDateString().split(' ')[0]+"Day";
-      date.textContent=d.toDateString().split(' ').slice(1).join().replace(","," ");
+      let [day,month,_date,year]=d.toString().split(' ');
+      let [time,ampm]=d.toLocaleString().split(" ").slice(-2);
+      
+      timeDay.textContent=time.split(":").slice(0,2).join(":")+` ${ampm},${days_of_week[d.getDay()]}`;
+      date.textContent=`${month} ${_date},${year}`;
       setTimeout(() => {
           addTime();
       }, 10000);
